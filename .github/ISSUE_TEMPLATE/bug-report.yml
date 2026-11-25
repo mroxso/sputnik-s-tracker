@@ -1,0 +1,23 @@
+name: Bug report
+description: Something on the page is broken or looks wrong.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you expect, and what did you see instead? Screenshots help.
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Device and browser
+      placeholder: e.g. iPhone 15, Safari 19
+    validations:
+      required: true
+  - type: textarea
+    id: console
+    attributes:
+      label: Console errors (optional)
+      render: text
