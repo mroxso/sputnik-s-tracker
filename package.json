@@ -1,7 +1,30 @@
 {
   "name": "sputnik-s-tracker",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "Open-source tracker for the reported Russian satellite Sputnik S, with a live 3D globe.",
+  "license": "MIT",
+  "homepage": "https://mroxso.github.io/sputnik-s-tracker/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mroxso/sputnik-s-tracker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mroxso/sputnik-s-tracker/issues"
+  },
+  "keywords": [
+    "satellite",
+    "tracker",
+    "sputnik",
+    "globe",
+    "tle",
+    "sgp4",
+    "react",
+    "shadcn"
+  ],
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
