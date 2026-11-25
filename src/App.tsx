@@ -31,7 +31,7 @@ export default function App() {
   return (
     <div className="flex min-h-svh flex-col">
       <header className="sticky top-0 z-20 border-b border-border/60 bg-background/70 backdrop-blur-lg">
-        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6">
+        <div className="mx-auto flex h-14 max-w-7xl 2xl:max-w-[2400px] items-center justify-between gap-3 px-4 sm:px-6 2xl:px-10">
           <div className="flex items-center gap-2.5">
             <div className="grid size-8 place-items-center rounded-lg bg-amber-400/15 text-amber-300 ring-1 ring-amber-400/25">
               <Satellite className="size-4" />
@@ -47,7 +47,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className="mx-auto grid w-full max-w-7xl flex-1 gap-4 px-4 py-4 sm:px-6 sm:py-6 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-6">
+      <main className="mx-auto grid w-full max-w-7xl 2xl:max-w-[2400px] flex-1 gap-4 px-4 py-4 sm:px-6 sm:py-6 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-6 2xl:grid-cols-[minmax(0,1fr)_minmax(0,780px)] 2xl:px-10">
         {/* Globe */}
         <section
           aria-label="Globe"
@@ -78,80 +78,86 @@ export default function App() {
         </section>
 
         {/* Side panel */}
-        <aside className="flex flex-col gap-4 lg:gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Mission status</CardTitle>
-              <CardDescription>
-                {mission.kind === 'error'
-                  ? `Could not load mission data (${mission.error}).`
-                  : config
-                    ? `Last updated ${formatDate(config.lastUpdated)}`
-                    : 'Loading…'}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="grid gap-3 text-sm">
-              <Row label="Status">{config ? <StatusBadge status={live ? 'tracking' : config.status} /> : '—'}</Row>
-              <Separator />
-              <Row label="Designation">{config?.designation ?? 'Not yet assigned'}</Row>
-              <Separator />
-              <Row label="NORAD ID">{config?.noradId ?? 'Not yet assigned'}</Row>
-              {config?.launchWindow && (
-                <>
-                  <Separator />
-                  <Row label="Launch window">
-                    {formatDate(config.launchWindow.start)} – {formatDate(config.launchWindow.end)}
-                  </Row>
-                  {config.launchWindow.note && (
-                    <p className="text-xs text-muted-foreground">{config.launchWindow.note}</p>
-                  )}
-                </>
-              )}
-              {tracking.kind === 'error' && (
-                <p className="rounded-md bg-destructive/10 px-3 py-2 text-xs text-destructive">
-                  Orbital data unavailable: {tracking.error}
-                </p>
-              )}
-            </CardContent>
-          </Card>
-
-          <section aria-label="Telemetry" className="flex flex-col gap-2.5">
-            <h2 className="px-1 text-xs font-medium tracking-wider text-muted-foreground uppercase">
-              Telemetry
-            </h2>
-            <Telemetry tracking={tracking} />
-          </section>
-
-          {config && config.timeline.length > 0 && (
+        {/* On widescreens the side panel splits into two columns: live data | context. */}
+        <aside className="flex flex-col gap-4 lg:gap-6 2xl:grid 2xl:grid-cols-2 2xl:items-start">
+          <div className="flex flex-col gap-4 lg:gap-6">
             <Card>
               <CardHeader>
-                <CardTitle>Timeline</CardTitle>
-                <CardDescription>Reports so far. None of this is officially confirmed.</CardDescription>
+                <CardTitle>Mission status</CardTitle>
+                <CardDescription>
+                  {mission.kind === 'error'
+                    ? `Could not load mission data (${mission.error}).`
+                    : config
+                      ? `Last updated ${formatDate(config.lastUpdated)}`
+                      : 'Loading…'}
+                </CardDescription>
               </CardHeader>
-              <CardContent>
-                <Timeline entries={config.timeline} />
+              <CardContent className="grid gap-3 text-sm">
+                <Row label="Status">{config ? <StatusBadge status={live ? 'tracking' : config.status} /> : '—'}</Row>
+                <Separator />
+                <Row label="Designation">{config?.designation ?? 'Not yet assigned'}</Row>
+                <Separator />
+                <Row label="NORAD ID">{config?.noradId ?? 'Not yet assigned'}</Row>
+                {config?.launchWindow && (
+                  <>
+                    <Separator />
+                    <Row label="Launch window">
+                      {formatDate(config.launchWindow.start)} – {formatDate(config.launchWindow.end)}
+                    </Row>
+                    {config.launchWindow.note && (
+                      <p className="text-xs text-muted-foreground">{config.launchWindow.note}</p>
+                    )}
+                  </>
+                )}
+                {tracking.kind === 'error' && (
+                  <p className="rounded-md bg-destructive/10 px-3 py-2 text-xs text-destructive">
+                    Orbital data unavailable: {tracking.error}
+                  </p>
+                )}
               </CardContent>
             </Card>
-          )}
 
-          <Card size="sm">
-            <CardContent className="flex gap-3 text-xs leading-relaxed text-muted-foreground">
-              <Database className="mt-0.5 size-4 shrink-0" />
-              <p>
-                Positions are computed in your browser with SGP4 from public orbital elements
-                published via{' '}
-                <a className="underline underline-offset-4 hover:text-foreground" href="https://celestrak.org" target="_blank" rel="noreferrer">
-                  CelesTrak
-                </a>
-                . Accuracy depends on how fresh those elements are.
-              </p>
-            </CardContent>
-          </Card>
+            <section aria-label="Telemetry" className="flex flex-col gap-2.5">
+              <h2 className="px-1 text-xs font-medium tracking-wider text-muted-foreground uppercase">
+                Telemetry
+              </h2>
+              <Telemetry tracking={tracking} />
+            </section>
+          </div>
+
+          <div className="flex flex-col gap-4 lg:gap-6">
+
+            {config && config.timeline.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Timeline</CardTitle>
+                  <CardDescription>Reports so far. None of this is officially confirmed.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Timeline entries={config.timeline} />
+                </CardContent>
+              </Card>
+            )}
+
+            <Card size="sm">
+              <CardContent className="flex gap-3 text-xs leading-relaxed text-muted-foreground">
+                <Database className="mt-0.5 size-4 shrink-0" />
+                <p>
+                  Positions are computed in your browser with SGP4 from public orbital elements
+                  published via{' '}
+                  <a className="underline underline-offset-4 hover:text-foreground" href="https://celestrak.org" target="_blank" rel="noreferrer">
+                    CelesTrak
+                  </a>
+                  . Accuracy depends on how fresh those elements are.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
         </aside>
       </main>
 
       <footer className="border-t border-border/60">
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <div className="mx-auto flex max-w-7xl 2xl:max-w-[2400px] flex-col gap-2 px-4 py-5 2xl:px-10 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <p>Independent project. Not affiliated with any government or space agency.</p>
           <a href={REPO_URL} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 hover:text-foreground">
             <CodeXml className="size-3.5" /> Source on GitHub
