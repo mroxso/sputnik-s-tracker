@@ -1,0 +1,32 @@
+name: Mission update
+description: Share news about Sputnik S, such as a launch, NORAD ID or a credible report.
+title: "[Mission update] "
+labels: ["mission-data"]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Type of update
+      options:
+        - Launch / launch date
+        - NORAD ID or designation
+        - News for the timeline
+        - Correction
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What happened, and when? Include the NORAD ID or designation if known.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source URL
+      description: Every update needs a credible source.
+      placeholder: https://
+    validations:
+      required: true
