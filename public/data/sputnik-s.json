@@ -1,0 +1,43 @@
+{
+  "$comment": "Edit this file to update the page without rebuilding. Once the satellite is in orbit, set status to \"tracking\" and fill in noradId; the page then pulls orbital elements (TLE) from CelesTrak and computes the live position in the browser.",
+  "name": "Sputnik S",
+  "status": "awaiting-launch",
+  "noradId": null,
+  "designation": null,
+  "lastUpdated": "2026-11-25",
+  "launchWindow": {
+    "start": "2026-12-01",
+    "end": "2027-01-05",
+    "note": "Reported window only. No launch date has been confirmed."
+  },
+  "launchSites": [
+    { "name": "Plesetsk", "lat": 62.927, "lng": 40.577 },
+    { "name": "Baikonur", "lat": 45.965, "lng": 63.305 }
+  ],
+  "timeline": [
+    {
+      "date": "2026-11",
+      "title": "NATO allies reportedly warned of a 60-day launch window",
+      "source": {
+        "label": "Voennoe Delo",
+        "url": "https://voennoedelo.com/en/posts/id22572-nato-fears-russian-nuclear-satellite-launch-in-2026"
+      }
+    },
+    {
+      "date": "2026-11",
+      "title": "WDR, NDR and Süddeutsche Zeitung report a launch could come in December 2026 at the earliest",
+      "source": {
+        "label": "The Moscow Times",
+        "url": "https://www.themoscowtimes.com/2026/11/23/kremlin-dismisses-reports-about-alleged-nuclear-armed-satellite-launch-a94349"
+      }
+    },
+    {
+      "date": "2026-11-23",
+      "title": "Kremlin dismisses the reports as unfounded",
+      "source": {
+        "label": "The Moscow Times",
+        "url": "https://www.themoscowtimes.com/2026/11/23/kremlin-dismisses-reports-about-alleged-nuclear-armed-satellite-launch-a94349"
+      }
+    }
+  ]
+}
